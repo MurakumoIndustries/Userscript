@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         AGA News Userscript
+// @name         AGA News Fix
 // @namespace    https://github.com/MurakumoIndustries/Userscript
-// @version      0.1
+// @version      0.2
 // @description  Userscript for fixing news on desktop browser
 // @author       Murakumo Industries
 // @match        http://alice.colopl.jp/news*
