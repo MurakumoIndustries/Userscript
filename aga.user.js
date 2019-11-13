@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         AGA News Fix
 // @namespace    https://github.com/MurakumoIndustries/Userscript
-// @version      0.2
+// @version      0.3
 // @description  Userscript for fixing news on desktop browser
 // @author       Murakumo Industries
 // @match        http://alice.colopl.jp/news*
 // @match        http://alice.colopl.jp/help*
+// @match        http://alice.colopl.jp/web*
 // @match        https://alice.colopl.jp/news*
 // @match        https://alice.colopl.jp/help*
+// @match        https://alice.colopl.jp/web*
 // @updateURL    https://github.com/MurakumoIndustries/Userscript/raw/master/aga.user.js
 // @downloadURL  https://github.com/MurakumoIndustries/Userscript/raw/master/aga.user.js
 // @grant        none
