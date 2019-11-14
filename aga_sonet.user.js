@@ -1,11 +1,15 @@
 // ==UserScript==
 // @name         AGA News Fix(Sonet)
 // @namespace    https://github.com/MurakumoIndustries/Userscript
-// @version      0.2
+// @version      0.3
 // @description  Userscript for fixing news(So-net) on desktop browser
 // @author       Murakumo Industries
 // @match        http://api-aga.so-net.tw/news*
+// @match        http://api-aga.so-net.tw/help*
+// @match        http://api-aga.so-net.tw/web*
 // @match        https://api-aga.so-net.tw/news*
+// @match        https://api-aga.so-net.tw/help*
+// @match        https://api-aga.so-net.tw/web*
 // @updateURL    https://github.com/MurakumoIndustries/Userscript/raw/master/aga_sonet.user.js
 // @downloadURL  https://github.com/MurakumoIndustries/Userscript/raw/master/aga_sonet.user.js
 // @grant        none
@@ -14,15 +18,13 @@
 (function () {
     'use strict';
 
-    // Your code here...
-
     var addStyle = function (cssStr) {
         var D = document;
         var newNode = D.createElement('style');
         newNode.textContent = cssStr;
         var targ = D.getElementsByTagName('head')[0] || D.body || D.documentElement;
         targ.appendChild(newNode);
-    }
+    };
     //fix scroll on PC
     window.mainScroll.destroy();
     document.getElementById('mainScroll').style.overflowY = 'visible';
@@ -91,26 +93,37 @@
     document.body.style.width = clientWidth + "px";
     document.body.style.height = "auto";
 
-    var mainScrollWidth = clientWidth / maxWidth * 618.93 / 0.95;
+    var mainScrollWidth = clientWidth / maxWidth * 600;
     if (mainScrollWidth > clientWidthReal) {
         mainScrollWidth = clientWidthReal;
+        document.getElementById('mainScroll').style.width = mainScrollWidth + 'px';
     }
-    document.getElementById('mainScroll').style.width = mainScrollWidth + 'px'
-    //disable hide_Android and hide_iOS
+    else {
+        document.getElementById('mainScroll').style.width = 'auto';
+        document.getElementsByClassName('scroller')[0].style.width = mainScrollWidth + 'px';
+    }
+    //disable hide_Android,hide_iOS,hide_DMM
     addStyle(`
-    .hide_Android {
+    .hide_Android,.hide_iOS,.hide_DMM   { display: block; }
+    .show_only_Android {
         display:block;
         background-color: rgba(0, 255, 0, 0.2);
     }
-    .hide_iOS {
+    .show_only_iOS {
         display:block;
         background-color: rgba(0, 0, 0, 0.2);
+    }
+    .show_only_DMM {
+        display:block;
+        background-color: rgba(0, 188, 212, 0.2);
     }
 `);
     //fix news
     addStyle(`
 .one-line{
-width:100%;
+    white-space: normal;
+    text-indent: 0;
+    padding-left: 0;
 }
 `);
     //add expand all button on /news/importants
@@ -132,7 +145,7 @@ width:100%;
                 'bubbles': true,
                 'cancelable': true
             });
-            var activeList = document.getElementsByClassName('important-box important-column active');
+            var activeList = document.getElementsByClassName('weighty-column active');
             var len = activeList.length
             if (len) {
                 for (let i = 0; i < len; i++) {
@@ -140,7 +153,7 @@ width:100%;
                 }
             }
             else {
-                var allList = document.getElementsByClassName('important-box important-column');
+                var allList = document.getElementsByClassName('weighty-column');
                 len = allList.length
                 for (let i = 0; i < len; i++) {
                     allList[i].dispatchEvent(event);
